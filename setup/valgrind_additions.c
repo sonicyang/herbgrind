@@ -37,7 +37,7 @@
    This file is part of FpDebug, a heavyweight Valgrind tool for
    detecting floating-point accuracy problems.
 
-   Copyright (C) 2010-2011 Florian Benz 
+   Copyright (C) 2010-2011 Florian Benz
       florianbenz1@gmail.com
 
    This program is free software; you can redistribute it and/or
@@ -69,6 +69,14 @@ fbenz: additions, needed if MPFR is used within a Valgrind tool
 
 #include "mpfr.h"
 #include "mpfr-impl.h"
+
+size_t (*__mpfr_strlen_func) _MPFR_PROTO ((const char*));
+char* (*__mpfr_strcpy_func) _MPFR_PROTO ((char*, const char*));
+void* (*__mpfr_memmove_func) _MPFR_PROTO ((void*, const void*, size_t));
+int (*__mpfr_memcmp_func) _MPFR_PROTO ((const void*, const void*, size_t));
+void* (*__mpfr_memset_func) _MPFR_PROTO ((void*, int, size_t));
+long int (*__mpfr_strtol_func) _MPFR_PROTO((const char*, char**, int));
+int (*__mpfr_isspace_func) _MPFR_PROTO((int));
 
 #undef mpfr_set_strlen_function
 

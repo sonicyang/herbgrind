@@ -106,7 +106,7 @@ valgrind/herbgrind/Makefile: valgrind/README src/Makefile.am
 	cp -r src/* valgrind/herbgrind/
 	cd valgrind && ./autogen.sh
 	cd valgrind && \
-		CFLAGS="-fno-stack-protector" \
+		CFLAGS="-fno-stack-protector -Wno-enum-conversion" \
 		./configure --prefix=$(shell pwd)/valgrind/$(HG_LOCAL_INSTALL_NAME) \
 		            --enable-only64bit \
 		            --build=$(TARGET_PLAT)
@@ -199,7 +199,7 @@ deps/openlibm-%/libopenlibm.a: setup/openlibm-$(OPENLIBM_VERSION).tar.gz
 MPFR_CONFIGURE_FLAGS = --disable-thread-safe
 
 configure-mpfr-32:
-	cd deps/mpfr-32/ && \
+	cd deps/mpfr-32/ && autoreconf -f -i && \
 		CFLAGS="-fno-stack-protector -fPIC" \
 		./configure --prefix=$(shell pwd)/deps/mpfr-32/$(HG_LOCAL_INSTALL_NAME) \
 		            --with-gmp-build=$(shell pwd)/deps/gmp-32 \
@@ -208,7 +208,7 @@ configure-mpfr-32:
 		aclocal
 
 configure-mpfr-64:
-	cd deps/mpfr-64/ && \
+	cd deps/mpfr-64/ && autoreconf -f -i && \
 		CFLAGS="-fno-stack-protector -fPIC" \
 		./configure --prefix=$(shell pwd)/deps/mpfr-64/$(HG_LOCAL_INSTALL_NAME) \
 		            --with-gmp-build=$(shell pwd)/deps/gmp-64 \
